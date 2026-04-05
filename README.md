@@ -7,9 +7,9 @@ Hỗ trợ phát nhạc online, tìm kiếm, lưu yêu thích.
 
 ## 🚀 Demo
 <p align="center">
-   <img src="https://github.com/user-attachments/assets/1c9bd9b3-9818-437b-bc3d-77a657677e69" width="45%" />
-  <img src="https://github.com/user-attachments/assets/eb3ab0b2-596e-4f4f-bf08-bac3e838909b" width="45%" />
-   <img src="https://github.com/user-attachments/assets/dbaee0fc-2b1e-45ae-9def-52012397c7cc" width="45%" />
+   <img src="https://github.com/user-attachments/assets/1c9bd9b3-9818-437b-bc3d-77a657677e69" width="30%"  style="margin: 10px;" />
+  <img src="https://github.com/user-attachments/assets/eb3ab0b2-596e-4f4f-bf08-bac3e838909b" width="30%" style="margin: 10px;" />
+   <img src="https://github.com/user-attachments/assets/dbaee0fc-2b1e-45ae-9def-52012397c7cc" width="30%" style="margin: 10px;" />
 </p>
 
 ---
@@ -27,13 +27,6 @@ Hỗ trợ phát nhạc online, tìm kiếm, lưu yêu thích.
 - MVVM
 - REST API
 - Firebase 
-
----
-
-## 📸 Screenshots
-
-![home](link_ảnh)
-![detail](link_ảnh)
 
 ---
 
