@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FA9D8B862F752C700029695B /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = FA9D8B852F752C700029695B /* UIImageColors */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		FA9D8B262F73CB130029695B /* ZingMP3Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZingMP3Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9D8B862F752C700029695B /* UIImageColors in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = ZingMP3Demo;
 			packageProductDependencies = (
+				FA9D8B852F752C700029695B /* UIImageColors */,
 			);
 			productName = ZingMP3Demo;
 			productReference = FA9D8B262F73CB130029695B /* ZingMP3Demo.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = FA9D8B1D2F73CB130029695B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FA9D8B842F752C700029695B /* XCRemoteSwiftPackageReference "UIImageColors" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA9D8B272F73CB130029695B /* Products */;
 			projectDirPath = "";
@@ -328,6 +337,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA9D8B842F752C700029695B /* XCRemoteSwiftPackageReference "UIImageColors" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jathu/UIImageColors";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA9D8B852F752C700029695B /* UIImageColors */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA9D8B842F752C700029695B /* XCRemoteSwiftPackageReference "UIImageColors" */;
+			productName = UIImageColors;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA9D8B1E2F73CB130029695B /* Project object */;
 }
