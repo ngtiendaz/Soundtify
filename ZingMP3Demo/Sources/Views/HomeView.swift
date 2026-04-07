@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var viewModel = HomeViewModel()
+    @StateObject var homeViewModel = HomeViewModel()
     var body: some View {
         ZStack{
                 Color.backgroundApp.ignoresSafeArea()
                 VStack(alignment: .leading){
-                    HomeBar()
+                    TopBar(titleView: "Trang chủ",typeView: "home")
                     ScrollView(.vertical, showsIndicators: false)
                     {
-                        if viewModel.isLoading{
-                            ProgressView().tint(.white)
+                        if homeViewModel.isLoading{
+                            VStack(alignment: .center){
+                                Spacer()
+                                ProgressView().tint(.white).controlSize(.large)
+                                Spacer()
+                            }.frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else {
                             VStack(spacing: 20){
-                                ForEach(Array(viewModel.sections.enumerated()), id: \.offset) { index, section in
+                                ForEach(Array(homeViewModel.sections.enumerated()), id: \.offset) { index, section in
                                     if let itemData = section.items {
                                         switch itemData {
                                         case .array(let list):
@@ -42,15 +46,15 @@ struct HomeView: View {
                                         }
                                     }
                                 }
-                            }
+                            }.padding(.leading,10)
                         }
                     }
                     .refreshable {
-                        await viewModel.refreshHome()
+                        await homeViewModel.refreshHome()
                     }
-                }.padding(.leading,10)
+                }
                 .task {
-                    await viewModel.fetchHome()
+                    await homeViewModel.fetchHome()
                 }
             
         }

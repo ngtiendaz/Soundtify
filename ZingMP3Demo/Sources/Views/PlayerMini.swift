@@ -1,7 +1,7 @@
 import SwiftUI
 struct PlayerMini: View {
     var song: Songs
-    @EnvironmentObject var playerviewmodel: PlayerViewModel
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     @State private var offset: CGFloat = 0
     
     var body: some View {
@@ -29,9 +29,9 @@ struct PlayerMini: View {
                 
                 // 3. NÚT ĐIỀU KHIỂN
                 Button(action: {
-                    playerviewmodel.togglePlayPause()
+                    playerViewModel.togglePlayPause()
                 }) {
-                    Image(systemName: playerviewmodel.isPlaying ? "pause.fill" : "play.fill")
+                    Image(systemName: playerViewModel.isPlaying ? "pause.fill" : "play.fill")
                         .font(.system(size: 24))
                         .foregroundColor(.white)
                         .frame(width: 44, height: 44)
@@ -43,7 +43,7 @@ struct PlayerMini: View {
             Spacer(minLength: 0)
             
             SliderCustom(
-                viewModel: playerviewmodel,
+                viewModel: playerViewModel,
                 height: 2,
                 heightFrame: 2,
                 showThumb: false,
@@ -53,20 +53,20 @@ struct PlayerMini: View {
         }
         .frame(height: 64)
         .background(ZStack {
-            playerviewmodel.miniBarColor
+            playerViewModel.miniBarColor
             Color.black.opacity(0.2)
         })
         .cornerRadius(8)
         .padding(.horizontal, 8)
         .onAppear {
                     if let url = song.thumbnailM {
-                        playerviewmodel.updateMiniColor(from: url)
+                        playerViewModel.updateMiniColor(from: url)
                     }
                 }
         // Theo dõi encodeId (là String) thay vì cả object song
         .onChange(of: song.encodeId) { newId in
             if let url = song.thumbnailM {
-                playerviewmodel.updateMiniColor(from: url)
+                playerViewModel.updateMiniColor(from: url)
             }
         }
         .offset(y: offset)
@@ -80,7 +80,7 @@ struct PlayerMini: View {
                 }
                 .onEnded { value in
                     if value.translation.height < -50 {
-                        playerviewmodel.isShowingPlayer = true
+                        playerViewModel.isShowingPlayer = true
                     }
                     // Reset lại vị trí mini player sau khi thả tay
                     withAnimation(.interactiveSpring()) {
@@ -90,7 +90,7 @@ struct PlayerMini: View {
         )
         .onTapGesture {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                playerviewmodel.isShowingPlayer = true
+                playerViewModel.isShowingPlayer = true
             }
         }
     }

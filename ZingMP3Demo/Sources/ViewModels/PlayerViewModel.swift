@@ -24,6 +24,10 @@ class PlayerViewModel: ObservableObject {
     @Published var selectedArtist: Artists? = nil
     @Published var artistToNavigate: Artists? = nil
     @Published var currentViewingArtist: Artists? = nil
+    
+    //lyric
+    @Published var lyricData: Lyrics? = nil
+    @Published var currentSentenceID: UUID? = nil
     private var timeObserver: Any?
     private var player: AVPlayer?
     
@@ -33,11 +37,15 @@ class PlayerViewModel: ObservableObject {
             self.isPlaying = false
             self.selectedSong = song
             
+            self.lyricData = nil
+            self.currentSentenceID = nil
+            
             if !queue.isEmpty {
                 self.songQueue = queue
             }
             
             Task {
+                await fetchLyric(id: song.encodeId)
                 await loadAndPlay()
             }
         }
@@ -130,6 +138,7 @@ class PlayerViewModel: ObservableObject {
             // Cập nhật currentTime để Slider "tự bò"
             DispatchQueue.main.async {
                 self.currentTime = time.seconds
+                self.updateLyricStatus(time: time.seconds)
                 
                 // Nếu duration chưa có (bằng 0), thử lấy lại lần nữa
                 if self.duration == 0 {
@@ -203,6 +212,45 @@ class PlayerViewModel: ObservableObject {
                 // Nếu TRÙNG thì chỉ đơn giản là đóng Player thôi, không nhảy trang nữa
                 self.isShowingPlayer = false
             }
+        }
+    
+    func fetchLyric(id: String) async {
+            if let data = await ApiLyric.getLyric(id: id) {
+                await MainActor.run {
+                    self.lyricData = data
+                }
+            }
+        }
+    func updateLyricStatus(time: Double) {
+            guard let sentences = lyricData?.sentences else { return }
+            
+            let timeInMs = Int(time * 1000) // Chuyển giây sang miligiây
+            
+            // Tìm câu hát phù hợp với thời gian hiện tại
+            if let current = sentences.first(where: { timeInMs >= $0.startTime && timeInMs <= $0.endTime }) {
+                if self.currentSentenceID != current.id {
+                    withAnimation(.easeInOut) {
+                        self.currentSentenceID = current.id
+                    }
+                }
+            }
+        }
+    func getCurrentAndNextSentences(from all: [Sentences]) -> [Sentences] {
+        guard let currentIndex = all.firstIndex(where: { $0.id == currentSentenceID }) else {
+            return Array(all.prefix(4))
+        }
+        
+        // Lấy index câu phía trước (nếu có)
+        let start = max(0, currentIndex - 1)
+        // Lấy thêm 3 câu nữa từ điểm start (để tổng là 4 câu)
+        let end = min(start + 4, all.count)
+        
+        return Array(all[start..<end])
+    }
+    func checkIsPlayed(_ sentence: Sentences, in all: [Sentences]) -> Bool {
+            guard let currentIndex = all.firstIndex(where: { $0.id == currentSentenceID }),
+                  let sentenceIndex = all.firstIndex(where: { $0.id == sentence.id }) else { return false }
+            return sentenceIndex <= currentIndex
         }
 }
 

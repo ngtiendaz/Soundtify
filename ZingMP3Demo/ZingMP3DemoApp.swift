@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
-
+import FirebaseCore
 @main
 struct ZingMP3DemoApp: App {
+    @StateObject var authManager = AuthManager.shared
+    
+    init() {
+            FirebaseApp.configure()
+        }
     var body: some Scene {
+    
         WindowGroup {
-            MainView()
+//            MainView()
+            ContentView().environmentObject(authManager)
         }
     }
 }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-struct VertiItem: View {
+struct VertiPlaylitsItem: View {
    let imageUrl: String?
    let title: String?
     

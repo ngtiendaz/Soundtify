@@ -2,15 +2,17 @@ import SwiftUI
 
 struct PlaylistDetail: View {
     var playlist: PlayLists
-    @StateObject var viewModel = PlayListViewModel()
-    @EnvironmentObject var playerManager: PlayerViewModel
-    @Environment(\.dismiss) var dismiss // Để làm nút Back
+    @StateObject var playListViewModel = PlayListViewModel()
+    @EnvironmentObject var playerViewModel: PlayerViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    @EnvironmentObject var searchViewModel: SearchViewModel
 
     var body: some View {
-        let currentPlaylist = viewModel.playlistDetail ?? playlist
+        let currentPlaylist = playListViewModel.playlistDetail ?? playlist
         ZStack(alignment: .top) {
             LinearGradient(
-                            gradient: Gradient(colors: [viewModel.playlistColor.opacity(0.8), Color.backgroundApp]),
+                            gradient: Gradient(colors: [playListViewModel.playlistColor.opacity(0.8), Color.backgroundApp]),
                             startPoint: .top,
                             endPoint: .bottom
                         )
@@ -51,8 +53,8 @@ struct PlaylistDetail: View {
                         
                         // NÚT PLAY TRÒN MÀU XANH
                         Button {
-                            if let firstSong = viewModel.songs.first {
-                                playerManager.play(song: firstSong)
+                            if let firstSong = playListViewModel.songs.first {
+                                playerViewModel.play(song: firstSong)
                             }
                         } label: {
                             Image(systemName: "play.fill")
@@ -68,14 +70,15 @@ struct PlaylistDetail: View {
 
                     // 4. DANH SÁCH BÀI HÁT
                     LazyVStack(spacing: 15) {
-                        if viewModel.isLoading {
+                        if playListViewModel.isLoading {
                             ProgressView().tint(.white).padding(.top, 30)
                         } else {
-                            ForEach(viewModel.songs, id: \.encodeId) { song in
+                            ForEach(playListViewModel.songs, id: \.encodeId) { song in
                                 Button {
-                                    playerManager.play(song: song, from: viewModel.songs)
+                                    searchViewModel.saveSongToHistory(song)
+                                    playerViewModel.play(song: song, from: playListViewModel.songs)
                                 } label: {
-                                    HorizItem(
+                                    HorizSongItem(
                                         encodeId: song.encodeId,
                                         imageUrl: song.thumbnailM,
                                         songName: song.title,
@@ -107,10 +110,10 @@ struct PlaylistDetail: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            viewModel.updateColor(from: playlist.thumbnail)
+            playListViewModel.updateColor(from: playlist.thumbnail)
                 }
         .task {
-            await viewModel.fetchSongs(playlistId: playlist.universalId)
+            await playListViewModel.fetchSongs(playlistId: playlist.universalId)
         }
     }
 }

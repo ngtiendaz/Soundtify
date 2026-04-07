@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct HorizItem: View {
+struct HorizSongItem: View {
     var encodeId: String
     var imageUrl: String?
     var songName: String?
     var artistName: String?
     
-    @EnvironmentObject var viewModel: PlayerViewModel
+    @EnvironmentObject var playerViewModel: PlayerViewModel
     
     
     var body: some View {
-        let isSelected = viewModel.selectedSong?.encodeId == encodeId
+        let isSelected = playerViewModel.selectedSong?.encodeId == encodeId
             HStack{
                ImageCustom(imageUrl: imageUrl, width: 55, height: 55)
                 VStack(alignment: .leading){
@@ -25,7 +25,7 @@ struct HorizItem: View {
                     {
                         if isSelected {
                             Image(systemName: "waveform")
-                                .symbolEffect(.bounce, options: .repeating, value: viewModel.isPlaying)
+                                .symbolEffect(.bounce, options: .repeating, value: playerViewModel.isPlaying)
                                 .foregroundColor(.green)
                         }
                         Text(songName ?? "Unknown")

@@ -16,7 +16,6 @@ struct ApiArtist {
         
         print("Fetching songs for artist URL: \(url)")
         
-        // Trả về mảng items bên trong data
         return response?.data?.items ?? []
     }
 }

@@ -11,12 +11,9 @@ struct SongInForPlayer: View {
     var artists: [Artists]?
     @EnvironmentObject var viewModel: PlayerViewModel
     var body: some View {
-        HStack {
+        HStack (alignment: .center){
             VStack(alignment: .leading, spacing: 4) {
-                Text(songName ?? "Unknown Song")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+                MarqueeText(text: songName ?? "Unknow Song").frame(maxWidth: .infinity, alignment: .leading)
                 
                 if let artistlist = artists, !artistlist.isEmpty{
                     ScrollView(.horizontal, showsIndicators: false){
@@ -45,10 +42,13 @@ struct SongInForPlayer: View {
                     Text("Unknown Artist").font(.headline).foregroundColor(.white.opacity(0.7))
                 }
             }
-            Spacer()
-            Image(systemName: "plus.circle")
-                .font(.title)
-                .foregroundColor(.green)
+//            Spacer()
+            Button(action: {}) {
+                    Image(systemName: "plus.circle")
+                        .font(.title)
+                        .foregroundColor(.green)
+                }
+                .padding(.leading, 10)
         }
     }
 }

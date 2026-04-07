@@ -14,7 +14,6 @@ struct ApiPlayList: Codable {
         
         let response: BaseResponse<PlayLists>? = await ApiServices.shared.request(url: url)
         print(url)
-        print(response?.data ?? "abc")
         return  response?.data
     }
     

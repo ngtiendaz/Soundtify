@@ -7,6 +7,7 @@
 
 import SwiftUI
 struct PlayBackControls: View {
+    var isLyricView: Bool = false
     @Binding var progress: Double
     @ObservedObject var viewModel: PlayerViewModel
     
@@ -29,9 +30,13 @@ struct PlayBackControls: View {
                 .foregroundColor(.white.opacity(0.6))
             }
             HStack {
-                Button(action: { /* Logic shuffle sau này */ }) {
-                    Image(systemName: "shuffle").font(.title3)
-                }
+               if isLyricView == true {
+                    
+               }else{
+                   Button(action: { /* Logic shuffle sau này */ }) {
+                       Image(systemName: "shuffle").font(.title3)
+                   }
+               }
                 Spacer()
                 Button(action: { viewModel.previousSong()}) {
                     Image(systemName: "backward.end.fill").font(.system(size: 35))
@@ -46,22 +51,32 @@ struct PlayBackControls: View {
                     Image(systemName: "forward.end.fill").font(.system(size: 35))
                 }
                 Spacer()
-                Image(systemName: "timer")
-                    .font(.title3)
+                if isLyricView == true {
+                     
+                }else{
+                    Button(action: { /* Logic shuffle sau này */ }) {
+                         Image(systemName: "timer")
+                            .font(.title3)
+                    }
+                }
             }
             .foregroundColor(.white)
             .padding(.vertical)
             
-            HStack {
-                Image(systemName: "hifispeaker")
-                Spacer()
-                Image(systemName: "square.and.arrow.up")
-                Spacer()
-                Image(systemName: "list.bullet")
-            }
-            .foregroundColor(.white.opacity(0.7))
-            .padding(.bottom,10)
-            .padding(.horizontal,8)
+           if isLyricView == true {
+            
+           }else{
+               HStack {
+                   Image(systemName: "hifispeaker")
+                   Spacer()
+                   Image(systemName: "square.and.arrow.up")
+                   Spacer()
+                   Image(systemName: "list.bullet")
+               }
+               .foregroundColor(.white.opacity(0.7))
+               .padding(.bottom,10)
+               .padding(.horizontal,8)
+           }
             
         }
     }

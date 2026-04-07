@@ -10,8 +10,9 @@ import SwiftUI
 struct ArtistDetail: View {
     var artist: Artists
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel = ArtistViewModel()
-    @EnvironmentObject var playerManager: PlayerViewModel
+    @StateObject var artistViewModel = ArtistViewModel()
+    @EnvironmentObject var playerViewModel: PlayerViewModel
+    @EnvironmentObject var searchViewModel: SearchViewModel
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -83,14 +84,15 @@ struct ArtistDetail: View {
                             .foregroundColor(.white)
                         
                         LazyVStack(spacing: 15) {
-                            if viewModel.isLoading {
+                            if artistViewModel.isLoading {
                                 ProgressView().tint(.white).padding(.top, 30)
                             } else {
-                                ForEach(viewModel.songs, id: \.encodeId) { song in
+                                ForEach(artistViewModel.songs, id: \.encodeId) { song in
                                     Button {
-                                        playerManager.play(song: song, from: viewModel.songs)
+                                        searchViewModel.saveSongToHistory(song)
+                                        playerViewModel.play(song: song, from: artistViewModel.songs)
                                     } label: {
-                                        HorizItem(
+                                        HorizSongItem(
                                             encodeId: song.encodeId,
                                             imageUrl: song.thumbnailM,
                                             songName: song.title,
@@ -128,7 +130,7 @@ struct ArtistDetail: View {
         .task {
             // Dùng id từ object artist truyền sang
             if let id = artist.id {
-                await viewModel.fetchArtistSongs(artistId: id)
+                await artistViewModel.fetchArtistSongs(artistId: id)
             }
         }
     }

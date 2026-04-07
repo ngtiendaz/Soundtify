@@ -7,16 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA915D502F82D7830082C2D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA915D4F2F82D7830082C2D5 /* GoogleService-Info.plist */; };
+		FA915D592F82D9760082C2D5 /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D582F82D9760082C2D5 /* FirebaseAI */; };
+		FA915D5B2F82D9760082C2D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D5A2F82D9760082C2D5 /* FirebaseAuth */; };
+		FA915D5D2F82D9760082C2D5 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D5C2F82D9760082C2D5 /* FirebaseCore */; };
+		FA915D5F2F82D9760082C2D5 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D5E2F82D9760082C2D5 /* FirebaseDatabase */; };
+		FA915D612F82D9760082C2D5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D602F82D9760082C2D5 /* FirebaseFirestore */; };
+		FA915D632F82D9760082C2D5 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D622F82D9760082C2D5 /* FirebaseMessaging */; };
+		FA915D652F82D9760082C2D5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D642F82D9760082C2D5 /* FirebaseStorage */; };
+		FA915D682F82D9C30082C2D5 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D672F82D9C30082C2D5 /* GoogleSignIn */; };
+		FA915D6A2F82D9C30082C2D5 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FA915D692F82D9C30082C2D5 /* GoogleSignInSwift */; };
 		FA9D8B862F752C700029695B /* UIImageColors in Frameworks */ = {isa = PBXBuildFile; productRef = FA9D8B852F752C700029695B /* UIImageColors */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA915D4F2F82D7830082C2D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		FA9D8B262F73CB130029695B /* ZingMP3Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZingMP3Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FA915D522F82D7FF0082C2D5 /* Exceptions for "ZingMP3Demo" folder in "ZingMP3Demo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FA9D8B252F73CB130029695B /* ZingMP3Demo */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FA9D8B282F73CB130029695B /* ZingMP3Demo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FA915D522F82D7FF0082C2D5 /* Exceptions for "ZingMP3Demo" folder in "ZingMP3Demo" target */,
+			);
 			path = ZingMP3Demo;
 			sourceTree = "<group>";
 		};
@@ -27,7 +51,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA915D5F2F82D9760082C2D5 /* FirebaseDatabase in Frameworks */,
 				FA9D8B862F752C700029695B /* UIImageColors in Frameworks */,
+				FA915D632F82D9760082C2D5 /* FirebaseMessaging in Frameworks */,
+				FA915D5B2F82D9760082C2D5 /* FirebaseAuth in Frameworks */,
+				FA915D5D2F82D9760082C2D5 /* FirebaseCore in Frameworks */,
+				FA915D6A2F82D9C30082C2D5 /* GoogleSignInSwift in Frameworks */,
+				FA915D652F82D9760082C2D5 /* FirebaseStorage in Frameworks */,
+				FA915D592F82D9760082C2D5 /* FirebaseAI in Frameworks */,
+				FA915D612F82D9760082C2D5 /* FirebaseFirestore in Frameworks */,
+				FA915D682F82D9C30082C2D5 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +70,7 @@
 		FA9D8B1D2F73CB130029695B = {
 			isa = PBXGroup;
 			children = (
+				FA915D4F2F82D7830082C2D5 /* GoogleService-Info.plist */,
 				FA9D8B282F73CB130029695B /* ZingMP3Demo */,
 				FA9D8B272F73CB130029695B /* Products */,
 			);
@@ -71,6 +105,15 @@
 			name = ZingMP3Demo;
 			packageProductDependencies = (
 				FA9D8B852F752C700029695B /* UIImageColors */,
+				FA915D582F82D9760082C2D5 /* FirebaseAI */,
+				FA915D5A2F82D9760082C2D5 /* FirebaseAuth */,
+				FA915D5C2F82D9760082C2D5 /* FirebaseCore */,
+				FA915D5E2F82D9760082C2D5 /* FirebaseDatabase */,
+				FA915D602F82D9760082C2D5 /* FirebaseFirestore */,
+				FA915D622F82D9760082C2D5 /* FirebaseMessaging */,
+				FA915D642F82D9760082C2D5 /* FirebaseStorage */,
+				FA915D672F82D9C30082C2D5 /* GoogleSignIn */,
+				FA915D692F82D9C30082C2D5 /* GoogleSignInSwift */,
 			);
 			productName = ZingMP3Demo;
 			productReference = FA9D8B262F73CB130029695B /* ZingMP3Demo.app */;
@@ -102,6 +145,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FA9D8B842F752C700029695B /* XCRemoteSwiftPackageReference "UIImageColors" */,
+				FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FA915D662F82D9C30082C2D5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA9D8B272F73CB130029695B /* Products */;
@@ -118,6 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA915D502F82D7830082C2D5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +308,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZingMP3Demo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,6 +340,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZingMP3Demo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -339,6 +387,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.11.0;
+			};
+		};
+		FA915D662F82D9C30082C2D5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
 		FA9D8B842F752C700029695B /* XCRemoteSwiftPackageReference "UIImageColors" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jathu/UIImageColors";
@@ -350,6 +414,51 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FA915D582F82D9760082C2D5 /* FirebaseAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAI;
+		};
+		FA915D5A2F82D9760082C2D5 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		FA915D5C2F82D9760082C2D5 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		FA915D5E2F82D9760082C2D5 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		FA915D602F82D9760082C2D5 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		FA915D622F82D9760082C2D5 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		FA915D642F82D9760082C2D5 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D572F82D9760082C2D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		FA915D672F82D9C30082C2D5 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D662F82D9C30082C2D5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		FA915D692F82D9C30082C2D5 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA915D662F82D9C30082C2D5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		FA9D8B852F752C700029695B /* UIImageColors */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FA9D8B842F752C700029695B /* XCRemoteSwiftPackageReference "UIImageColors" */;

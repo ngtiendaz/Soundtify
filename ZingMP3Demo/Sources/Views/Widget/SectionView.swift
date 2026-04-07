@@ -26,7 +26,7 @@ struct SectionView: View{
                         NavigationLink{
                             PlaylistDetail(playlist: item )
                         } label: {
-                            VertiItem(imageUrl: item.thumbnail, title: item.title)
+                            VertiPlaylitsItem(imageUrl: item.thumbnail, title: item.title)
                         }
                     }
                 }

@@ -9,23 +9,37 @@ import SwiftUI
 struct TopBarPlayer: View {
     @Environment(\.dismiss) var dismiss
     var songName: String?
+    var artistName: String?
     var body: some View {
-        HStack {
+        HStack(alignment: .top) {
             Button(action: { dismiss() }) {
                 Image(systemName: "chevron.down")
                     .font(.title2)
             }
             Spacer()
-            Text(songName ?? "Unknown")
-                .font(.system(size: 16,weight: .bold))
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
+            if artistName == nil {
+                Text(songName ?? "Unknown")
+                    .font(.system(size: 14,weight: .bold))
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+            }else{
+                VStack{
+                    Text(songName ?? "Unknown")
+                        .font(.system(size: 14,weight: .bold))
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                    Text(artistName ?? "Unknown")
+                        .font(.system(size: 13, weight: .regular))
+                        .multilineTextAlignment(.center)
+                }
+            }
             Spacer()
             Image(systemName: "ellipsis")
                 .font(.title2)
         }
         .foregroundColor(.white)
         .padding(.horizontal)
-        .padding(.top,50)
+        .padding(.top,80)
     }
 }
+
