@@ -39,6 +39,6 @@ Hỗ trợ phát nhạc online, tìm kiếm, lưu yêu thích.
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/abc/music-app-ios.git
-cd music-app-ios
-open MusicApp.xcodeproj
+git clone https://github.com/ngtiendaz/Soundtify.git
+cd Soundtify
+open Soundtify.xcodeproj
