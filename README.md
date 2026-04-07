@@ -36,9 +36,15 @@ Hỗ trợ phát nhạc online, tìm kiếm, lưu yêu thích.
 
 ---
 
-## ⚙️ Installation
+## ⚙️ Installation 
 
 ```bash
 git clone https://github.com/ngtiendaz/Soundtify.git
 cd Soundtify
 open Soundtify.xcodeproj
+
+
+Backend
+git clone https://github.com/ngtiendaz/API_ZingMP3.git
+cd API_ZingMP3
+npm start
