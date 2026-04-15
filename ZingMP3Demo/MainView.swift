@@ -1,91 +1,104 @@
-//
-//  ContentView.swift
-//  ZingMP3Demo
-//
-//  Created by Daz on 25/3/26.
-//
-
 import SwiftUI
 
 struct MainView: View {
-    @State private var selectedTab: Tab = .home
-    @State private var isShowingPlayer = false
-    @State private var selectedSong: Songs?
-    @StateObject var playViewModel = PlayerViewModel()
-    @State private var navPath = NavigationPath()
+    @StateObject var router = AppRouter()
+    @StateObject var playerViewModel = PlayerViewModel()
     @StateObject var searchViewModel = SearchViewModel()
-    init()
-    {
-        
+    
+    init() {
         UITabBar.appearance().isHidden = true
     }
+    
     var body: some View {
-        ZStack(alignment: .bottom){
+        ZStack(alignment: .bottom) {
             Color.backgroundApp.ignoresSafeArea()
-            Group{
-                switch selectedTab {
+            
+            Group {
+                switch router.selectedTab {
                 case .home:
-                    NavigationStack(path: $navPath){
+                    NavigationStack(path: $router.homePath) {
                         HomeView()
-                        .navigationDestination(for: PlayLists.self) { playlist in
-                        PlaylistDetail(playlist: playlist)
-                         }
-                        .navigationDestination(for: Artists.self) { artist in
-                        ArtistDetail(artist: artist)
-                        .onAppear { playViewModel.currentViewingArtist = artist }
-                        .onDisappear { playViewModel.currentViewingArtist = nil }
-                        }
+                            .navigationDestination(for: AppDestination.self) { destination in
+                                buildDestinationView(destination)
+                            }
                     }
                 case .search:
-                    NavigationStack (path: $navPath){
+                    NavigationStack(path: $router.searchPath) {
                         SearchView()
-                        .navigationDestination(for: PlayLists.self) { playlist in
-                        PlaylistDetail(playlist: playlist)
-                         }
-                        .navigationDestination(for: Artists.self) { artist in
-                        ArtistDetail(artist: artist).environmentObject(playViewModel)
-                        .onAppear { playViewModel.currentViewingArtist = artist }
-                        .onDisappear { playViewModel.currentViewingArtist = nil }
-                        }
+                            .navigationDestination(for: AppDestination.self) { destination in
+                                buildDestinationView(destination)
+                            }
                     }
                 case .library:
-                    NavigationStack { Text("Library View").foregroundColor(.white) }
-                case .profile:
-                    NavigationStack { Text("Profile View").foregroundColor(.white) }
-                case .add:
-                    NavigationStack { Text("Add View").foregroundColor(.white) }
-                }
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.bottom, playViewModel.selectedSong != nil ? 130 : 70)
-            VStack(spacing: 0){
-                if let song = playViewModel.selectedSong {
-                    PlayerMini(song: song)
-                    
-                        .environmentObject(playViewModel)
-                }
-                MenuBar(selectedTab: $selectedTab)
-            }
-        }.environmentObject(playViewModel)
-            .environmentObject(searchViewModel)
-            .onChange(of: playViewModel.artistToNavigate) { oldValue, newValue in
-                        if let artist = newValue {
-                            playViewModel.isShowingPlayer = false // 1. Ẩn Player
-                            navPath.append(artist)            // 2. Nhảy trang
-                            playViewModel.artistToNavigate = nil  // 3. Reset trigger
-                        }
+                    NavigationStack(path: $router.libraryPath) {
+                        LibraryView()
+                            .navigationDestination(for: AppDestination.self) { destination in
+                                buildDestinationView(destination)
+                            }
                     }
-            .fullScreenCover(isPresented: $playViewModel.isShowingPlayer) {
-                if let song = playViewModel.selectedSong {
-                    PlayerView(song: song)
-                        // QUAN TRỌNG: Phải truyền lại VM vào đây cho PlayerView dùng
-                        .environmentObject(playViewModel)
-                        .environmentObject(searchViewModel)
+                case .profile:
+                    NavigationStack(path: $router.libraryPath) {
+                        ProfileView().navigationDestination(for: AppDestination.self) { destination in
+                            buildDestinationView(destination) }
+                    }
+                case .chat:
+                    NavigationStack(path: $router.chatPath) {
+                        ChatView().navigationDestination(for: AppDestination.self) { destination in
+                            buildDestinationView(destination) }
+                    }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.bottom, playerViewModel.selectedSong != nil ? 135 : 75)
+            
+            VStack(spacing: 0) {
+                if let song = playerViewModel.selectedSong {
+                    MiniPlayer(song: song)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+                BottomMenuBar(selectedTab: $router.selectedTab)
+            }
+        }
+        .environmentObject(router)
+        .environmentObject(playerViewModel)
+        .environmentObject(searchViewModel)
+        .onChange(of: playerViewModel.artistToNavigate) { _, newValue in
+            if let artist = newValue {
+                playerViewModel.isShowingPlayer = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    router.push(.artist(artist))
+                    playerViewModel.artistToNavigate = nil
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $playerViewModel.isShowingPlayer) {
+            playerDestination
+        }
         .ignoresSafeArea(.keyboard)
     }
-}
-
-#Preview {
-    MainView().environmentObject(AuthManager.shared)
-}
+    
+    @ViewBuilder
+    private func buildDestinationView(_ destination: AppDestination) -> some View {
+        switch destination {
+        case .playlist(let playlist):
+            PlaylistView(playlist: playlist)
+        case .artist(let artist):
+            ArtistView(artist: artist)
+                .onAppear { playerViewModel.currentViewingArtist = artist }
+                .onDisappear { playerViewModel.currentViewingArtist = nil }
+            
+        case .favorites:
+            FavoriteView()
+        }
+    }
+        
+        @ViewBuilder
+        var playerDestination: some View {
+            if let song = playerViewModel.selectedSong {
+                PlayerView(song: song)
+                    .environmentObject(playerViewModel)
+                    .environmentObject(router)
+                    .environmentObject(searchViewModel)
+            }
+        }
+    }

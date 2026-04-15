@@ -13,7 +13,6 @@ struct ContentView: View {
     var body: some View {
         Group {
             if authManager.isLoggedIn {
-                // Đổi tên thành cái View màn hình chính của Daz (ví dụ HomeView hoặc MainTabBar)
                 MainView()
                     .transition(.opacity)
             } else {

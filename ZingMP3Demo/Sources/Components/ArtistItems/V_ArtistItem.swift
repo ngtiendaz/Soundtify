@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ArtistItem: View {
+struct V_ArtistItem: View {
     var id: String?
     var imageUrl: String?
     var title: String?

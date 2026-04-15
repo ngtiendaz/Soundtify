@@ -9,78 +9,97 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var authManager = AuthManager.shared
-    @State private var email = ""
-    @State private var password = ""
     
     var body: some View {
         ZStack {
-            // Nền tối chuẩn App nhạc
-            Color.backgroundApp.ignoresSafeArea()
+            // 1. Nền đen sâu (chuẩn Spotify)
+            Color.black.ignoresSafeArea()
             
-            VStack(spacing: 30) {
-                // Logo hoặc Icon
-                Image(systemName: "music.note.house.fill")
+            VStack(spacing: 20) {
+                Spacer()
+                
+                // 2. Logo biểu tượng
+                Image(systemName: "music.note")
                     .resizable()
-                    .frame(width: 80, height: 80)
-                    .foregroundColor(.purple)
-                    .padding(.top, 50)
-                
-                Text("ZingMP3 Demo")
-                    .font(.system(size: 32, weight: .bold))
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
                     .foregroundColor(.white)
+                    .padding(.bottom, 10)
                 
-                // Form đăng nhập bằng Email (Nếu Daz muốn dùng cả tài khoản thường)
-                VStack(spacing: 15) {
-                    TextField("Email", text: $email)
-                        .padding()
-                        .background(Color.white.opacity(0.1))
-                        .cornerRadius(10)
-                        .foregroundColor(.white)
-                        .autocapitalization(.none)
-                    
-                    SecureField("Mật khẩu", text: $password)
-                        .padding()
-                        .background(Color.white.opacity(0.1))
-                        .cornerRadius(10)
-                        .foregroundColor(.white)
-                    
-                    Button(action: {
-                        // Logic đăng nhập Email nếu Daz viết thêm
-                    }) {
-                        Text("Đăng nhập")
-                            .fontWeight(.bold)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.purple)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                }
-                .padding(.horizontal)
-                
-                Text("hoặc")
-                    .foregroundColor(.gray)
-                
-                // NÚT GOOGLE (Cái này Daz đã cấu hình xong)
-                Button(action: {
-                    authManager.signInWithGoogle()
-                }) {
-                    HStack {
-                        Image(systemName: "g.circle.fill") // Có thể thay bằng logo Google xịn
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                        Text("Tiếp tục với Google")
-                            .fontWeight(.semibold)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                }
-                .padding(.horizontal)
+                Text("Hàng triệu bài hát.\nMiễn phí trên Soundtify.")
+                    .font(.system(size: 28, weight: .bold))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
                 
                 Spacer()
+                
+                // 3. Khu vực các nút bấm (Capsule Style)
+                VStack(spacing: 12) {
+                    
+                    // Nút Đăng ký miễn phí (Dành cho Email)
+                    Button(action: {
+                        // Điều hướng sang màn hình đăng ký/đăng nhập email
+                    }) {
+                        Text("Đăng ký miễn phí")
+                            .font(.system(size: 16, weight: .bold))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(Color.green) // Có thể dùng màu xanh lá nếu muốn giống hệt
+                            .foregroundColor(.white)
+                            .clipShape(Capsule())
+                    }
+                    
+                    // Nút Google - Bo tròn Capsule
+                    Button(action: {
+                        authManager.signInWithGoogle()
+                    }) {
+                        HStack {
+                            Image(systemName: "g.circle.fill")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Text("Tiếp tục bằng Google")
+                                .font(.system(size: 16, weight: .bold))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(Color.clear)
+                        .foregroundColor(.white)
+                        .overlay(
+                            Capsule().stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                        )
+                    }
+                    
+                    // Nút Đăng nhập Apple (Nếu có)
+                    Button(action: {}) {
+                        HStack {
+                            Image(systemName: "applelogo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                            Text("Tiếp tục bằng Apple")
+                                .font(.system(size: 16, weight: .bold))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(Color.clear)
+                        .foregroundColor(.white)
+                        .overlay(
+                            Capsule().stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                        )
+                    }
+                }
+                .padding(.horizontal, 30)
+                
+                // 4. Dòng chuyển hướng Đăng nhập nhỏ
+                Button(action: {}) {
+                    Text("Đăng nhập")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                .padding(.top, 10)
+                
+                Spacer().frame(height: 30)
             }
         }
     }

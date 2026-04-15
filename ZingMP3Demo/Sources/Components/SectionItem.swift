@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct SectionView: View{
+struct SectionItem: View{
     
     let sectionTitle: String
     let items: [PlayLists]
+    @EnvironmentObject var router: AppRouter
 
     var body: some View {
         VStack {
@@ -22,12 +23,12 @@ struct SectionView: View{
             ScrollView(.horizontal, showsIndicators: false)
             {
                 LazyHStack(spacing: 12){
-                    ForEach(items,id: \.encodeId) { item in
-                        NavigationLink{
-                            PlaylistDetail(playlist: item )
+                    ForEach(items,id: \.universalId) { item in
+                        Button{
+                            router.push(.playlist(item))
                         } label: {
-                            VertiPlaylitsItem(imageUrl: item.thumbnail, title: item.title)
-                        }
+                            V_PlaylistItem(imageUrl: item.thumbnail, title: item.title)
+                        }.buttonStyle(PlainButtonStyle())
                     }
                 }
             }

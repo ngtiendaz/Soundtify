@@ -11,8 +11,6 @@ struct LyricView: View {
     @State private var progress: Double = 0.0
     @EnvironmentObject var playerViewModel: PlayerViewModel
     @Environment(\.dismiss) var dismiss
-    var songName: String
-    var artistName: String
     var body: some View {
         ZStack{
             LinearGradient(gradient: Gradient(colors: [
@@ -25,7 +23,7 @@ struct LyricView: View {
             Color.black.opacity(0.2).ignoresSafeArea()
             
             VStack{
-                TopBarPlayer(songName: songName, artistName: artistName)
+                TopBarPlayer(songName: playerViewModel.selectedSong?.title ?? "Unknown", artistName: playerViewModel.selectedSong?.artistsNames ?? "Unknown")
                 ScrollViewReader { proxy in
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .leading, spacing: 30) {

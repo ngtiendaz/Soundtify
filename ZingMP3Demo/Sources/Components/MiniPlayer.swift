@@ -1,5 +1,5 @@
 import SwiftUI
-struct PlayerMini: View {
+struct MiniPlayer: View {
     var song: Songs
     @EnvironmentObject var playerViewModel: PlayerViewModel
     @State private var offset: CGFloat = 0

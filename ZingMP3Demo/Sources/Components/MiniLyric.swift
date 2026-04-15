@@ -7,23 +7,24 @@
 
 import SwiftUI
 
-struct LyricMini: View {
+struct MiniLyric: View {
     @EnvironmentObject var viewModel: PlayerViewModel
+    @EnvironmentObject var router: AppRouter
     
     var body: some View {
         ZStack(alignment: .leading) {
             LinearGradient(
-                            gradient: Gradient(colors: [
-                                viewModel.miniBarColor.lighter(by: 0.1), // Màu trích xuất từ ảnh
-                                viewModel.miniBarColor.lighter(by: 0.1)
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                        .ignoresSafeArea()
+                gradient: Gradient(colors: [
+                    viewModel.miniBarColor.lighter(by: 0.1),
+                    viewModel.miniBarColor.lighter(by: 0.1)
+                    ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+                    )
+                    .ignoresSafeArea()
                         
-                        // Một lớp phủ mờ tối nhẹ để chữ trắng luôn nổi bật
-                        Color.black.opacity(0.2).ignoresSafeArea()
+                       
+            Color.black.opacity(0.2).ignoresSafeArea()
             
             VStack(alignment: .leading, spacing: 0) {
                 Text("Bản xem trước lời bài hát")
@@ -71,8 +72,8 @@ struct LyricMini: View {
                 )
                 .clipped()
                 Spacer(minLength: 10)
-                NavigationLink {
-                    LyricView(songName: viewModel.selectedSong?.title ?? "", artistName: viewModel.selectedSong?.artistsNames ?? "")
+                Button {
+                    viewModel.isShowingLyricFull = true
                 }label: {
                         Text("Hiện lời bài hát")
                             .foregroundColor(.black)

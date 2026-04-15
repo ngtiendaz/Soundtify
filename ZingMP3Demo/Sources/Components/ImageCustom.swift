@@ -11,6 +11,7 @@ struct ImageCustom: View {
     var imageUrl: String?
     var width: CGFloat = 100
     var height: CGFloat = 100
+    var onLoadFailed: (() -> Void)? = nil
     
     var body: some View {
         AsyncImage(url: URL( string: imageUrl ?? "")){ phase in
@@ -26,7 +27,7 @@ struct ImageCustom: View {
             case .failure:
                 Image(systemName:"photo").resizable()
                     .scaledToFit().frame(width: height, height: height)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.gray).onAppear { onLoadFailed?()}
             @unknown default:
                 EmptyView()
             }

@@ -50,8 +50,7 @@ class AuthManager: ObservableObject {
         let dbUser = DBUser(
             uid: user.uid,
             email: user.email,
-            photoURL: user.photoURL?.absoluteString,
-            displayName: user.displayName
+            displayName: user.displayName, photoURL: user.photoURL?.absoluteString
         )
         DispatchQueue.main.async {
             self.currentUser = dbUser

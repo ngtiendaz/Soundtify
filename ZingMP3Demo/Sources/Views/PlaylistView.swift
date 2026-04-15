@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PlaylistDetail: View {
+struct PlaylistView: View {
     var playlist: PlayLists
     @StateObject var playListViewModel = PlayListViewModel()
     @EnvironmentObject var playerViewModel: PlayerViewModel
@@ -78,12 +78,7 @@ struct PlaylistDetail: View {
                                     searchViewModel.saveSongToHistory(song)
                                     playerViewModel.play(song: song, from: playListViewModel.songs)
                                 } label: {
-                                    HorizSongItem(
-                                        encodeId: song.encodeId,
-                                        imageUrl: song.thumbnailM,
-                                        songName: song.title,
-                                        artistName: song.artistsNames
-                                    )
+                                    H_SongItem( song: song )
                                 }
                             }
                         }

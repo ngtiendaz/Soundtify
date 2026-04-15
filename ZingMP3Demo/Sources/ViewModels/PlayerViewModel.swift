@@ -25,11 +25,24 @@ class PlayerViewModel: ObservableObject {
     @Published var artistToNavigate: Artists? = nil
     @Published var currentViewingArtist: Artists? = nil
     
+    
+    
     //lyric
     @Published var lyricData: Lyrics? = nil
     @Published var currentSentenceID: UUID? = nil
+    @Published var isShowingLyricFull = false
+    
+    
+    //Favorite
+    @Published var favoriteSongs: [Songs] = []
+    
     private var timeObserver: Any?
     private var player: AVPlayer?
+    
+    
+    init(){
+        checkFavorites()
+    }
     
     func play(song: Songs, from queue: [Songs] = []) {
             player?.pause()
@@ -125,7 +138,10 @@ class PlayerViewModel: ObservableObject {
                 if isPlaying { player.pause() } else { player.play() }
                 isPlaying.toggle()
     }
-    
+    func stopMusic() {
+        guard let player = player else { return }
+        player.pause()
+    }
     func addTimeObserver() {
         // Xóa observer cũ nếu có để tránh bị chồng chéo
         removeCurrentObserver()
@@ -252,5 +268,59 @@ class PlayerViewModel: ObservableObject {
                   let sentenceIndex = all.firstIndex(where: { $0.id == sentence.id }) else { return false }
             return sentenceIndex <= currentIndex
         }
+    func toggleLyricFull() {
+            isShowingLyricFull.toggle()
+        }
+    
+    
+    func checkFavorites(){
+        Task {
+            let fetchsongs = await FirebaseService.shared.fetchFavorites()
+            
+            await MainActor.run{
+                self.favoriteSongs = fetchsongs
+            }
+        }
+    }
+    
+    func toggleFavorite(song : Songs){
+        if let index = favoriteSongs.firstIndex(where: { $0.encodeId == song.encodeId}){
+            favoriteSongs.remove(at: index)
+            
+            Task{
+                await FirebaseService.shared.removeFromFavorites(songId: song.encodeId)
+            }
+        } else {
+            favoriteSongs.insert(song, at: 0)
+            Task {
+                await FirebaseService.shared.addToFavorites(song: song)
+            }
+        }
+    }
+    
+    func refreshSongMetadata(songId: String) async {
+        // 1. Gọi API Zing để lấy thông tin chi tiết bài hát (chứa link ảnh mới)
+        // Giả sử bạn có hàm ApiSong.getDetail(id:) trả về đối tượng Songs
+        if let updatedSong = await ApiSong.fetchDetailSong(id: songId) {
+            
+            await MainActor.run {
+                // 2. Nếu bài hát này đang nằm trong danh sách yêu thích, ta update Firebase
+                if favoriteSongs.contains(where: { $0.encodeId == songId }) {
+                    Task {
+                        // Update lại link ảnh mới vào Firestore
+                        await FirebaseService.shared.updateSongThumbnail(
+                            songId: songId,
+                            newThumbnail: updatedSong.thumbnailM ?? ""
+                        )
+                        
+                        // Cập nhật lại mảng favoriteSongs cục bộ để UI đổi ảnh ngay
+                        if let index = favoriteSongs.firstIndex(where: { $0.encodeId == songId }) {
+                            favoriteSongs[index] = updatedSong
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

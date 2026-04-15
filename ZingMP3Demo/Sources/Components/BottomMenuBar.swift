@@ -10,22 +10,23 @@ import SwiftUI
 enum Tab: String, CaseIterable {
     case home = "house"
     case search = "magnifyingglass"
+    case chat = "ellipsis.message.fill"
     case library = "music.note.square.stack.fill"
     case profile = "person.crop.circle"
-    case add = "plus"
+  
     
     var title: String{
         switch self {
         case .home: return "Trang chủ"
         case .search: return "Tìm kiếm"
+        case .chat: return "Đoạn chat"
         case .library: return "Thư viện"
         case .profile: return "Cá nhân"
-        case .add: return "Tạo"
         }
     }
 }
 
-struct MenuBar: View {
+struct BottomMenuBar: View {
     @Binding var selectedTab: Tab
     
     var body: some View {

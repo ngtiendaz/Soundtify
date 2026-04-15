@@ -77,7 +77,7 @@ struct SearchView: View {
                     }
                     if !searchViewModel.recentSongs.isEmpty {
                         VStack(alignment: .leading, spacing: 15) {
-                            Text("Nghe gần đây")
+                            Text("Bài hát tìm kiếm gần đây")
                                 .font(.headline)
                                 .foregroundColor(.white)
                             
@@ -86,12 +86,7 @@ struct SearchView: View {
                                 Button {
                                     playerViewModel.play(song: song, from: searchViewModel.recentSongs)
                                 } label: {
-                                    HorizSongItem(
-                                        encodeId: song.encodeId,
-                                        imageUrl: song.thumbnailM ?? "",
-                                        songName: song.title,
-                                        artistName: song.artistsNames ?? ""
-                                    )
+                                    H_SongItem( song: song )
                                 }
                             }
                         }
@@ -120,7 +115,7 @@ struct SearchView: View {
                                     playerViewModel.selectedArtist = artist
                                 }
                             } label: {
-                                ArtistItem(id: artist.id, imageUrl: artist.thumbnail, title: artist.name)
+                                V_ArtistItem(id: artist.id, imageUrl: artist.thumbnail, title: artist.name)
                             }
                         }
                     }
@@ -136,7 +131,7 @@ struct SearchView: View {
                         searchViewModel.saveSongToHistory(song)
                         playerViewModel.play(song: song, from: searchViewModel.songs ?? [])
                     } label: {
-                        HorizSongItem(encodeId: song.encodeId, imageUrl: song.thumbnailM, songName: song.title, artistName: song.artistsNames)
+                        H_SongItem(song: song)
                     }
                 }
             }
@@ -148,11 +143,11 @@ struct SearchView: View {
                     LazyHStack {
                         ForEach(playlists, id:\.universalId){ playlist in
                             NavigationLink {
-                                PlaylistDetail(playlist: playlist).environmentObject(searchViewModel)
+                                PlaylistView(playlist: playlist).environmentObject(searchViewModel)
                                     .onAppear { searchViewModel.addToRecent(searchText)
                                 }
                             } label: {
-                                VertiPlaylitsItem(imageUrl: playlist.thumbnail, title: playlist.title)
+                                V_PlaylistItem(imageUrl: playlist.thumbnail, title: playlist.title)
                             }
                         }
                     }

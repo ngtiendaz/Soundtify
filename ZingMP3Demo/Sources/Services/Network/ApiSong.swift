@@ -16,4 +16,11 @@ struct ApiSong: Codable {
         print(url)
         return  response?.data
     }
+    static func fetchDetailSong(id: String) async -> Songs?{
+        let url = "\(ApiBase.infosong)?id=\(id)"
+        
+        let response: BaseResponse<Songs>? = await ApiServices.shared.request(url: url)
+        print(url)
+        return  response?.data
+    }
 }

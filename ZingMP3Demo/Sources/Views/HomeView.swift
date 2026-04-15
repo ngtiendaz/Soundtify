@@ -29,7 +29,7 @@ struct HomeView: View {
                                         switch itemData {
                                         case .array(let list):
                                             if !list.isEmpty {
-                                                SectionView(
+                                                SectionItem(
                                                     sectionTitle: section.title ?? "",
                                                     items: list)
                                             }
